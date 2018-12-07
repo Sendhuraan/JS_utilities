@@ -1,0 +1,8 @@
+# Mac
+.DS_Store
+
+# Node
+node_modules/*
+
+# Generated 
+src/collection/*/generated/*
