@@ -50,12 +50,13 @@
     if (fs.existsSync('node_modules')) {
       listES5.exclude('node_modules/*');
     }
-    if (fs.existsSync(GENERATED_DIR)) {
-      listES5.exclude(GENERATED_DIR + '/*');
+    if (fs.existsSync('src/collection')) {
+      listES5.exclude('src/collection' + '/*');
     }
     
     var listES6 = new jake.FileList();
-    listES6.include('src/collection/**/*.jsx');
+    listES6.include('src/collection/**/*.js');
+    listES6.exclude('src/collection/*/generated/**/*.js');
 
     var lintES5 = lintRunner.validateFiles(listES5.toArray(), lintConfig.es5Options);
     var lintES6 = lintRunner.validateFiles(listES6.toArray(), lintConfig.es6Options);
@@ -65,6 +66,21 @@
     }
 
   }, { async: true });
+
+
+  desc('Server Tests');
+  task('runInNode', function(){
+
+    var mochaConfig = require('./build/config/mocha.config.js');
+    var mochaRunner = require('./build/utilities/mocha-runner.js');
+
+    var testFiles = new jake.FileList();
+    testFiles.include('src/collection/**/*.js');
+    testFiles.exclude('src/collection/*/generated/**/*.js');
+
+    mochaRunner.runTests(mochaConfig, testFiles);
+
+  });
 
   namespace('browserTests', function() {
 
@@ -78,12 +94,12 @@
 
       var overrideConfig = {
         files: [
-            'src/collection/'+sourceDirName+'/generated/client/**/*.js'
+            'src/collection/'+sourceDirName+'/generated/**/*.js'
           ],
         preprocessors: {}
       };
 
-      overrideConfig.preprocessors['src/collection/'+sourceDirName+'/generated/client/**/*.js'] = ['browserify'];
+      overrideConfig.preprocessors['src/collection/'+sourceDirName+'/generated/**/*.js'] = ['browserify'];
 
       var karmaConfig = cfg.parseConfig(path.resolve('./build/config/karma.config.js'), overrideConfig);
 
@@ -102,12 +118,12 @@
 
       var overrideConfig = {
         files: [
-            'src/collection/'+sourceDirName+'/generated/client/**/*.js'
+            'src/collection/'+sourceDirName+'/generated/**/*.js'
           ],
         preprocessors: {}
       };
 
-      overrideConfig.preprocessors['src/collection/'+sourceDirName+'/generated/client/**/*.js'] = ['browserify'];
+      overrideConfig.preprocessors['src/collection/'+sourceDirName+'/generated/**/*.js'] = ['browserify'];
 
       var karmaConfig = cfg.parseConfig(path.resolve('./build/config/karma.config.js'), overrideConfig);
 
@@ -119,148 +135,6 @@
 
     });
 
-  });
-
-  desc('Start HTTP server for manual testing');
-  task('serve', function(sourceDirName) {
-
-        var dependentTask = jake.Task['build:unit'];
-        
-        dependentTask.addListener('complete', function() {
-
-          console.log('serving...')
-
-          var SOURCE_DIR = COLLECTION_DIR + sourceDirName;
-          var DEPLOY_DIR = SOURCE_DIR + '/deploy';
-
-          var finalhandler = require('finalhandler');
-          var http = require('http');
-          var serveStatic = require('serve-static');
-
-          var HOST = 'localhost';
-          var PORT = 3000;
-          
-          var serve = serveStatic(DEPLOY_DIR, {'index': ['index.html', 'index.htm']});
-          
-          var server = http.createServer(function onRequest (req, res) {
-            serve(req, res, finalhandler(req, res));
-          });
-          
-          server.listen(PORT, HOST, function(error) {
-            if(error) {
-              console.log(error);
-            }
-            else {
-              console.log('Server Listening on http://' + HOST + ':' + PORT);
-            }
-            
-          });
-
-        });
-
-        dependentTask.invoke.apply(dependentTask, [sourceDirName]);
-
-  }, { async: true });
-
-  desc('Create deployable client files');
-  namespace('build', function() {
-
-    task('all', function() {
-      process.stdout.write('Building deploy dir for all folders ~');
-    });
-
-    task('unit', function(sourceDirName) {
-
-      if(!sourceDirName) {
-        fail('Specify folder name for building - build:unit[folderName]');
-      }
-      else {
-
-        var dependentTask = jake.Task['bundle:unit'];
-        
-        dependentTask.addListener('complete', function() {
-
-          console.log('Building deploy dir for unit folder ~');
-
-          var SOURCE_DIR = COLLECTION_DIR + sourceDirName;
-          var CLIENT_DIR = SOURCE_DIR + '/client';
-          var GENERATED_DIR = SOURCE_DIR + '/generated';
-          var BROWSERIFY_DIR = GENERATED_DIR + '/bundle';
-          var DEPLOY_DIR = SOURCE_DIR + '/deploy';
-
-          shell.rm('-rf', DEPLOY_DIR + '/*');
-          shell.mkdir('-p', DEPLOY_DIR);
-
-          shell.cp('-R',
-              CLIENT_DIR + '/*.html',
-              CLIENT_DIR + '/*.css',
-              BROWSERIFY_DIR + '/*.js',
-            DEPLOY_DIR
-          );
-
-          complete();
-
-          return sourceDirName;
-
-        });
-
-        dependentTask.invoke.apply(dependentTask, [sourceDirName]);
-        
-      }
-
-    }, { async: true });
-    
-    
-  });
-
-  namespace('bundle', function() {
-    
-    task('all', function() {
-      process.stdout.write('Bundling all folders ~');
-    });
-
-    task('unit', function(sourceDirName) {
-
-      if(!sourceDirName) {
-        fail('Specify folder name for bundling - bundle:unit[folderName]');
-      }
-      else {
-
-        var dependentTask = jake.Task['transpile:unit'];
-
-        dependentTask.addListener('complete', function() {
-
-          console.log('Bundling unit folder ~');
-
-          var SOURCE_DIR = COLLECTION_DIR + sourceDirName;
-          var GENERATED_DIR = SOURCE_DIR + '/generated';
-          var COLLATED_CLIENT_DIR = GENERATED_DIR + '/client';
-          var BROWSERIFY_DIR = GENERATED_DIR + '/bundle';
-
-          shell.rm('-rf', BROWSERIFY_DIR + '/*');
-          shell.mkdir('-p', BROWSERIFY_DIR);
-
-          var browserifyRunner = require('./build/utilities/browserify-runner.js');
-
-          browserifyRunner.bundle(COLLATED_CLIENT_DIR + '/app.js', BROWSERIFY_DIR + '/bundle.js', bundleComplete, fail);
-
-          function bundleComplete() {
-            complete();
-            console.log('Bundle End');
-          }
-
-          return sourceDirName;
-
-
-        });
-
-        dependentTask.invoke.apply(dependentTask, [sourceDirName]);
-
-        
-      }
-
-    }, { async: true });
-    
   });
 
   namespace('transpile', function() {
@@ -289,10 +163,9 @@
 
         var transpileFileList = new jake.FileList();
         transpileFileList.include(SOURCE_DIR + '/**/*.js');
-        transpileFileList.include(SOURCE_DIR + '/**/*.jsx');
 
         var compileOptions = {
-          presets: ['@babel/preset-react', '@babel/preset-env']
+          presets: ['@babel/preset-env']
         };
 
         var transpileStatus = babelRunner.transformFiles(SOURCE_DIR, transpileFileList.toArray(), GENERATED_DIR, babelConfig);
