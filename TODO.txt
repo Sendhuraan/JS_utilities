@@ -29,48 +29,138 @@ Built-In Types
 	undefined
 	null
 	number
+		basics
+			create
+				literal syntax (var a = 42)
+				native function (var a = Number('42'))
+				constructor function (var a = new Number(42))
+			properties
+			methods
+
+		special values
+			Infinity
+			NaN
+
 	string
+		basics
+			create
+				literal syntax (var a = '42')
+				native function (var a = String(42))
+				constructor function (var a = new String(42))
+			properties
+			methods
+
 	boolean
+	function
+		basics
+			create
+				function statement
+				function expression
+			properties
+			methods
+
+		default parameters (ES6)
+
+		getters & setters (ES6)
+
+		arrow functions (ES6)
+
+		class basics (ES6)
+
+		generator function (ES6)
+
+		async function (ES6)
+
 	object
 		basics
+			create
+				literal syntax
+				constructor function
+				Object.create() to create object based on another object's prototype.
+			properties
+			methods
 
-		types
-			array
-				basics
-					create
-						literal syntax
-						native functions
-						constructor syntax
-					properties
-					methods
+		built-in objects
 
-			function
-				basics
-					create
-						function statement
-						function expression
-					properties
-					methods
+			Indexed Collections
+				Array
+					basics
+						create
+							literal syntax
+							native function
+						properties
+						methods
+				Int16Array
+				Int32Array
+				Int8Array
+				Uint16Array
+				Uint32Array
+				Uint8Array
+				Uint8ClampedArray
+				Float32Array
+				Float64Array
+				TypedArray
 
-				default parameters (ES6)
+			Keyed Collections
+				Map
+				WeakMap
 
-				getters & setters (ES6)
+				Set
+				WeakSet
 
-				arrow functions (ES6)
+			Math & Date Objects
+				Math
+				Date
+				BigInt
 
-				class basics (ES6)
+			Structured Data
+				JSON
+				ArrayBuffer
+				DataView
 
-				generator function (ES6)
+			Function Properties
+				eval()
 
-				async function (ES6)
+				isFinite()
+				isNaN()
 
-			date
+				parseFloat()
+				parseInt()
 
-			regexp
+				decodeURI()
+				decodeURIComponent()
+				encodeURI()
+				encodeURIComponent()
+
+			Flow Control Objects
+				Promise
+
+			Error Objects
+				Error
+				EvalError
+				InternalError
+				RangeError
+				ReferenceError
+				SyntaxError
+				TypeError
+				URIError
+
+			Internationalization
+				Intl
+				Intl.Collator
+				Intl.DateTimeFormat
+				Intl.NumberFormat
+				Intl.PluralRules
+
+			Reflection
+				Proxy
+				Reflect
+
+			WebAssembly
+				WebAssembly
+
 
 	symbol (ES6)
-
-Special Values
 
 Statements & Declarations
 	block
