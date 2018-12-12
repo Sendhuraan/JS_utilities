@@ -5,112 +5,134 @@ Expressions & Operators
 	Comma operator
 	Comparison operators
 	Conditional (ternary) operator
-	Destructuring assignment
+	Template Strings (ES6)
+	Destructuring assignment (ES6)
 	Grouping operator
 	Logical operators
 	Object initializer
 	Operator precedence
 	Property accessors
-	spread & rest syntax (...) 
-	await
-	delete operator
 	in operator
 	instanceof
 	new operator
-	new.target
-	super
 	this
 	typeof
+	delete operator
 	void operator
+	spread & rest syntax ... (ES6)
+	new.target (ES6)
+	super
+	await (ES6)
 	yield
 	yield*
-
+	
 Built-In Types
 	undefined
 	null
 	number
-		basics
-			create
-				literal syntax (var a = 42)
-				native function (var a = Number('42'))
-				constructor function (var a = new Number(42))
-			properties
-			methods
+		Basics
+			Create
+				literal syntax (<Number Value>)
+				native function (var a = Number('<Number Value>'))
+				constructor function (var a = new Number(<Number Value>))
+			Properties
+				ES6 additions
+			Methods
+				ES6 additions
 
-		special values
-			Infinity
+		Special Values
 			NaN
+			Infinity
+			-Infinity
+			-0
 
 	string
-		basics
-			create
-				literal syntax (var a = '42')
-				native function (var a = String(42))
-				constructor function (var a = new String(42))
-			properties
-			methods
+		Basics
+			Create
+				literal syntax ('<String Value>' or "<String Value>" or `<String Value>`)
+				native function (String(<String Value>))
+				constructor function (new String(<String Value>))
+			Properties
+				ES6 additions
+			Methods
+				ES6 additions
 
 	boolean
-	function
-		basics
-			create
-				function statement
-				function expression
-			properties
-			methods
-
-		default parameters (ES6)
-
-		getters & setters (ES6)
-
-		arrow functions (ES6)
-
-		class basics (ES6)
-
-		generator function (ES6)
-
-		async function (ES6)
 
 	object
-		basics
-			create
+		Basics
+			Create
 				literal syntax
 				constructor function
-				Object.create() to create object based on another object's prototype.
-			properties
-			methods
+				Object.Create() to Create object based on another object's prototype.
+			Properties
+				ES6 additions
+			Methods
+				ES6 additions
 
-		built-in objects
+		Special Object (Callable Object)
+			function
+			Basics
+				Create
+					function statement
+					function expression
+				Properties
+					ES6 additions
+				Methods
+					ES6 additions
+
+			default parameters (ES6)
+			getters & setters (ES6)
+			arrow functions (ES6)
+			class Basics (ES6)
+			generator function (ES6)
+			async function (ES6)
+
+		Built-In Objects
 
 			Indexed Collections
 				Array
-					basics
-						create
+					Basics
+						Create
 							literal syntax
 							native function
-						properties
-						methods
-				Int16Array
-				Int32Array
-				Int8Array
-				Uint16Array
-				Uint32Array
-				Uint8Array
-				Uint8ClampedArray
-				Float32Array
-				Float64Array
-				TypedArray
+						Properties
+							ES6 additions
+						Methods
+							ES6 additions
+	
+				Int16Array (ES6)
+				Int32Array (ES6)
+				Int8Array (ES6)
+				Uint16Array (ES6)
+				Uint32Array (ES6)
+				Uint8Array (ES6)
+				Uint8ClampedArray (ES6)
+				Float32Array (ES6)
+				Float64Array (ES6)
+				TypedArray (ES6)
 
 			Keyed Collections
-				Map
-				WeakMap
-
-				Set
-				WeakSet
+				Map (ES6)
+				WeakMap (ES6)
+				Set (ES6)
+				WeakSet (ES6)
 
 			Math & Date Objects
 				Math
+					Basics
+						Properties
+							ES6 additions
+						Methods
+							ES6 additions
+
 				Date
+					Basics
+						Properties
+							ES6 additions
+						Methods
+							ES6 additions
+
 				BigInt
 
 			Structured Data
@@ -120,20 +142,17 @@ Built-In Types
 
 			Function Properties
 				eval()
-
 				isFinite()
 				isNaN()
-
 				parseFloat()
 				parseInt()
-
 				decodeURI()
 				decodeURIComponent()
 				encodeURI()
 				encodeURIComponent()
 
 			Flow Control Objects
-				Promise
+				Promise (ES6)
 
 			Error Objects
 				Error
@@ -153,14 +172,15 @@ Built-In Types
 				Intl.PluralRules
 
 			Reflection
-				Proxy
-				Reflect
+				Proxy (ES6)
+				Reflect (ES6)
 
 			WebAssembly
 				WebAssembly
 
 
 	symbol (ES6)
+	
 
 Statements & Declarations
 	block
@@ -180,9 +200,9 @@ Statements & Declarations
 	while
 	do...while
 	for
-	for await...of
+	for await...of (ES6)
 	for...in
-	for...of
+	for...of (ES6)
 
 	return
 
@@ -198,17 +218,17 @@ Statements & Declarations
 Coercion
 
 Scope
-	lexical scope
+	Lexical Scope
 
 Closure
-	closure basics
+	Basics
 
 Prototypes
-	dynamic scope (this)
+	Dynamic Scope (this)
 
 Object Orienting
-	classical inheritance
+	Classical Inheritance
 
-	object linkage
+	Object Linkage
 	
 
