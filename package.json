@@ -1,8 +1,8 @@
 {
-  "name": "generic-build-setup",
+  "name": "@sendhuraan/js-utilities",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/collection/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
