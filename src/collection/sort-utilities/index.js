@@ -1,9 +1,9 @@
 (function() {
 
-	var SortUtils = require('./sort-utilities');
+	var BubbleSort = require('./bubble-sort');
 
 	var publicAPI = {
-		SortUtils: SortUtils
+		BubbleSort: BubbleSort
 	}
 
 	module.exports = publicAPI;
