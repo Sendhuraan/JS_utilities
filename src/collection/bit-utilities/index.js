@@ -1,5 +1,9 @@
 (function() {
 
+	function convertToBinary(x) {
+		return x.toString(2);
+	}
+
 	function clearLowestSetBit(x) {
 		return x & (x - 1);
 	}
@@ -12,11 +16,11 @@
 		return x & 1;
 	}
 
-	function shiftBit(x, numOfBitsToShift) {
+	function shiftBitRight(x, numOfBitsToShift) {
 		return x >>> numOfBitsToShift;
 	}
 
-	function countSetBits__V__01(x) {
+	function countSetBits_shiftBits(x) {
 		var result = 0;
 
 		while(x) {
@@ -25,13 +29,14 @@
 				result++;
 			}
 
-			x = shiftBit(x, 1);
+			x = shiftBitRight(x, 1);
+
 		}
 
 		return result;
 	}
 
-	function countSetBits(x) {
+	function countSetBits_clearSetBits(x) {
 		var result = 0;
 
 		while(x) {
@@ -42,12 +47,34 @@
 		return result;
 	}
 
+	function swapBits(x, positionA, positionB) {
+
+		var positionA_mask = 1 << positionA - 1;
+		var positionB_mask = 1 << positionB - 1;
+
+		var bit_positionA = x & positionA_mask;
+		var bit_positionB = x & positionB_mask;
+
+		var isSwapNeeded = bit_positionA != bit_positionB;
+
+		if(isSwapNeeded) {
+			var swapMask = positionA_mask | positionB_mask;
+			x = x ^ swapMask;
+		}
+
+		return x;
+
+	}
+
 	var publicAPI = {
+		convertToBinary: convertToBinary,
 		clearLowestSetBit: clearLowestSetBit,
 		extractLowestSetBit: extractLowestSetBit,
 		getLSB: getLSB,
-		shiftBit: shiftBit,
-		countSetBits: countSetBits
+		shiftBitRight: shiftBitRight,
+		countSetBits_shiftBits: countSetBits_shiftBits,
+		countSetBits_clearSetBits: countSetBits_clearSetBits,
+		swapBits: swapBits
 	}
 
 	module.exports = publicAPI;
