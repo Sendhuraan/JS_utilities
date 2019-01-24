@@ -1,11 +1,9 @@
 (function() {
 
 	var BitUtils = require('./bit-utilities');
-	var MathUtils = require('./math-utilities');
 
 	var publicAPI = {
-		BitUtils: BitUtils,
-		MathUtils: MathUtils
+		BitUtils: BitUtils
 	}
 
 	module.exports = publicAPI;
